@@ -6,7 +6,7 @@
 /*   By: mel-oual <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 23:53:12 by mel-oual          #+#    #+#             */
-/*   Updated: 2019/08/05 00:12:16 by mel-oual         ###   ########.fr       */
+/*   Updated: 2019/08/05 00:43:12 by mel-oual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_Piece
 
 typedef struct s_Map
 {
+	int min;
 	int collision;
 	int haut;
 	int larg;
