@@ -6,7 +6,7 @@
 /*   By: mel-oual <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 23:53:12 by mel-oual          #+#    #+#             */
-/*   Updated: 2019/08/01 19:15:43 by mel-oual         ###   ########.fr       */
+/*   Updated: 2019/08/05 00:12:16 by mel-oual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include <fcntl.h>
 #include "../libft/includes/libft.h"
 
+#define SHORT 0b0000000000000001
+#define VERIF 15
 #define LINE 5
 #define BUFF 21
 
@@ -36,11 +38,15 @@ typedef struct s_liste
 
 typedef struct s_Piece
 {
+	unsigned int size : 4;
+	unsigned int verif : 4;
+	int content;
 	int collision;
 	int line;
 	int haut;
 	int larg;
-	int col;
+	struct s_Piece *befor;
+	struct s_Piece *next;
 } t_piece ;
 
 typedef struct s_Map

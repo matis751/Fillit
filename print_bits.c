@@ -3,25 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   print_bits.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-oual <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: exam <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/01 20:05:21 by mel-oual          #+#    #+#             */
-/*   Updated: 2019/08/01 20:21:09 by mel-oual         ###   ########.fr       */
+/*   Created: 2019/03/19 09:13:46 by exam              #+#    #+#             */
+/*   Updated: 2019/03/19 09:23:49 by exam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include <unistd.h>
 
-int print_bit(unsigned int a)
+void	print_bits(unsigned char octet)
 {
-	int x = 256;
-	while (x >>= 1)
-		(a & x) ? write (1, "1", 1) : write (1, "0", 1);
-	return (1);
-}
-
-int main(int a, char **b)
-{
-	if (a == 2)
-		print_bit(**b);
-	return (0);
+	int i = 128;
+	while (i)
+	{
+		(octet & i) ? write(1, "1", 1) : write(1, "0", 1);
+		i = i / 2;
+	}
 }
