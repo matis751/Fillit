@@ -22,11 +22,9 @@ int ft_creat_map(t_piece *Piece)
 	t_Map *Map;
 
 	Map = (t_map *)malloc(sizeof(t_map));
-	Map->min = ft_valeur(Piece->haut, Piece->larg);
-	
+	Map->min = ft_valeur(Piece->haut, Piece->larg) + 1;
+	Map->carrer =  
 
 
-
-
-
+	return (1);
 }

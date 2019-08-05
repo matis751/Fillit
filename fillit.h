@@ -20,6 +20,7 @@
 #include "../libft/includes/libft.h"
 
 #define SHORT 0b0000000000000001
+#define ULL -9223372036854775807
 #define VERIF 15
 #define LINE 5
 #define BUFF 21
@@ -52,6 +53,7 @@ typedef struct s_Piece
 typedef struct s_Map
 {
 	int min;
+	long long int size_map : 64;
 	int collision;
 	int haut;
 	int larg;
