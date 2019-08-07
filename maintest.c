@@ -61,11 +61,14 @@ void	print_bits2(unsigned long int octet)
 
 void en_bit (int position, unsigned int *piece_bit)
 {
-	int x;
-
+	static int x;
+	int b = 1;
+	x += position;
+	while (b++ != x)
+		(16 % b) == 0  && b != 2 ? position-- : b ;
 	*piece_bit <<= position;
 	*piece_bit |= 1 ;
-	
+	x = 0;
 }
 
 int bits(char *buff, t_piece *Piece) /*transforme ma piece en bit*/
