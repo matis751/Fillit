@@ -6,7 +6,7 @@
 /*   By: mel-oual <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 23:53:12 by mel-oual          #+#    #+#             */
-/*   Updated: 2019/08/05 00:43:12 by mel-oual         ###   ########.fr       */
+/*   Updated: 2019/08/09 16:05:38 by mel-oual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,6 @@
 #define VERIF 15
 #define LINE 5
 #define BUFF 21
-
-int ft_compareversion2(char *buff);
-int ft_voisin(char **buff);
-
 typedef struct s_liste
 {
 	int value;
@@ -42,20 +38,27 @@ typedef struct s_Piece
 	unsigned int size : 4;
 	unsigned int verif : 4;
 	int content;
-	int collision;
-	int line;
 	int haut;
 	int larg;
 	struct s_Piece *befor;
 	struct s_Piece *next;
+	char l;
 } t_piece ;
 
 typedef struct s_Map
 {
-	int min;
-	long long int size_map : 64;
-	int collision;
-	int haut;
-	int larg;
+	int carrer;
+	long int size : 64;
 } t_map ;
+
+int ft_compareversion2(char *buff);
+int ft_valeur(int a, int b);
+void ft_ajoute(t_piece *Piece);
+void printer(t_map *Map, t_piece *Piece, char c);
+int ft_voisin(char **buff);
+void ft_carrer(t_map *Map);
+int tracking(t_piece *Piece, t_map *Map);
+void	print_bits3(unsigned long int octet);
+t_map *creat_map(t_piece *Piece, t_map *Map);
+
 #endif
