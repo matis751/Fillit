@@ -6,7 +6,7 @@
 /*   By: mel-oual <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 16:28:05 by mel-oual          #+#    #+#             */
-/*   Updated: 2019/08/09 16:24:34 by mel-oual         ###   ########.fr       */
+/*   Updated: 2019/08/11 15:26:50 by mel-oual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,45 +82,24 @@ int bits(char *buff, t_piece *Piece) /*transforme ma piece en bit*/
 		y++;
 	}
 	Piece->content = piece_bit;
+	printf("Valeur de la piece : %d\n", Piece->content);
+	printf("Valeur en bit : \n");
+	print_bits2(Piece->content);
 	return (1);
 }
 
 int main(int ac, char **av)
 {
-	int fd;
-	int ret;
-	char *buff;
 	t_map *Map;
 	t_piece *Piece;
 	t_piece *Ancre;
-	Piece = ft_premiere_piece;
-	Map = (t_map *)malloc(sizeof(t_map));
+	Piece = (t_piece *)malloc(sizeof(t_piece));
+	ft_premiere_piece(Piece);
+	ft_ajoute_map(&Map);
+	Ancre = Piece;
 
-	ret = 0;
-	buff = ft_strnew(21);
-	if (ac == 2)
-	{
-		fd = open(av[1], O_RDONLY);
-		while ((ret = read(fd, buff, 21)) > 0)
-		{
-			Piece->next = (t_piece *)malloc(sizeof(t_piece));
-			bits(buff, Piece);
-			ft_parametres_larg(Piece);
-			ft_parametres_haut(Piece, Map);
-			ft_ajoute(Piece);
-			free(buff);
-			buff = ft_strnew(21);
-		}
-		free(buff);
-		Piece = Ancre;
-		while (Piece->next != NULL)
-		{
-			while (!(tracking(Piece, Map)))
-				Map->carrer++;
-			Piece->befor = Piece;
-			Piece = Piece->next;
-		}
-	}
-	printer(Map, Piece, c);
+	reader(av[1], &Piece, Map);
+	Piece = Ancre;
+	tracking(Map, Piece);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: mel-oual <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 23:53:12 by mel-oual          #+#    #+#             */
-/*   Updated: 2019/08/11 15:25:03 by mel-oual         ###   ########.fr       */
+/*   Updated: 2019/08/11 10:11:25 by mel-oual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,30 +46,29 @@ typedef struct s_Piece
 
 typedef struct s_Map
 {
-	long int size : 64;
 	int carrer;
-	int line;
+	long int size : 64;
 } t_map ;
 
-void ft_ajoute_map(t_map **Map);
 int ft_compareversion2(char *buff);
-int ft_bit_get_while(long int bit, int pos);
-int ft_insert(t_piece *Piece, t_map *Map);
+void ft_ajoute_piece(t_piece *Piece);
+int ft_bit_get_While(long int *bit, int pos);
 int ft_bit_get(long int *bit, int pos);
 void ft_next_piece(t_piece **Piece);
 int	ft_parametres_larg(t_piece *Piece);
 int ft_parametres_haut(t_piece *Piece, t_map *Map);
 int ft_valeur(int a, int b);
 int bits(char *buff, t_piece *Piece);
-int reader(char *av, t_piece **Piece, t_map *Map);
+void ft_ajoute(t_piece *Piece);
+int reader(char *av, t_piece *Piece, t_map *Map);
 void ft_ajoute_piece(t_piece *Piece);
-void ft_premiere_piece(t_piece *Piece);
+void ft_premiere_piece(t_piece **Piece);
 void output(t_map *Map, t_piece *Piece);
 void printer(t_map *Map, t_piece *Piece);
 int ft_voisin(char **buff);
 void ft_carrer(t_map *Map);
-void tracking(t_map *Map, t_piece *Piece);
-void	print_bits2(unsigned long int octet);
+int tracking(t_map *Map, t_piece *Piece);
+void	print_bits3(unsigned long int octet);
 t_map *creat_map(t_piece *Piece, t_map *Map);
 
 #endif
