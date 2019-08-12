@@ -104,12 +104,12 @@ int main(int ac, char **av)
 	t_piece *Piece;
 	t_piece *Ancre;
 	Piece = (t_piece *)malloc(sizeof(t_piece));
+	Map = (t_map *)malloc(sizeof(t_map));
 	ft_premiere_piece(Piece);
 	ft_ajoute_map(&Map);
 	Ancre = Piece;
 
 	reader(av[1], &Piece, Map);
-	Piece = Ancre;
 	Piece = Ancre;
 	tracking(Map, Piece);
 	return (1);

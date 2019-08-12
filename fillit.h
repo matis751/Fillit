@@ -50,9 +50,15 @@ typedef struct s_Map
 	long int size : 64;
 	int carrer;
 	int line;
+	struct s_Map *befor;
+	struct s_Map *left;
+	struct s_Map *right;
 } t_map ;
 
+void ft_next_right_map(t_map **Map);
 void ajuste(long int *bit);
+void ft_next_left_map(t_map **Map);
+void ft_next_right_map(t_map **Map);
 void ft_ajoute_map(t_map **Map);
 int ft_compareversion2(char *buff);
 int ft_bit_get_while(long int bit, int pos);

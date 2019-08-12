@@ -21,13 +21,43 @@ void ft_ajoute_piece(t_piece *Piece)
 void ft_ajoute_map(t_map **Map)
 {
 	t_map *Tmp_Map;
-	Tmp_Map = (t_map *)malloc(sizeof(t_map));
 
 	Tmp_Map->carrer = 0;
 	Tmp_Map->line = 0;
 	Tmp_Map->size = 0;
+	Tmp_Map->right = NULL;
+	Tmp_Map->left = NULL;
+	
 	*Map = Tmp_Map;
 }
+void ft_next_right_map(t_map **Map)
+{
+	
+	t_map *Tmp_Map;
+
+	Tmp_Map->right = (t_map *)malloc(sizeof(t_map));
+	Tmp_Map = *Map;
+	Tmp_Map->befor= Tmp_Map;
+	Tmp_Map = Tmp_Map->right;
+	ft_ajoute_map(&Tmp_Map);
+
+	*Map = Tmp_Map;
+}
+
+void ft_next_left_map(t_map **Map)
+{
+	
+	t_map *Tmp_Map;
+
+	Tmp_Map->left = (t_map *)malloc(sizeof(t_map));
+	Tmp_Map = *Map;
+	Tmp_Map->befor= Tmp_Map;
+	Tmp_Map = Tmp_Map->left;
+	ft_ajoute_map(&Tmp_Map);
+
+	*Map = Tmp_Map;
+}
+
 void ft_next_piece(t_piece **Piece)
 {
 	t_piece *Tmp_Piece;

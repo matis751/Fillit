@@ -11,15 +11,29 @@
 /* ************************************************************************** */
 
 #include "fillit.h"
+void ft_shear(t_map *Map)
+{
+	int x;
+	int y;
 
-int bit_while(long int map, long int piece, int carrer)
+	x = 0;
+	y = 1;
+	while (Map->size >>= 1)
+		x++;
+	while ((y * y) != x)
+		y++;
+	(y > Map->carrer;)
+	
+	
+}
+int bit_while(long int map, int carrer)
 {
 	long int x;
 	int car;
 	long int masque;
 	int y = 64;
 
-	x = map ^ piece;
+	x |= map;
 	masque = 1;
 	masque <<= y - 1;
 	while (y-- != carrer)
@@ -43,17 +57,25 @@ void	print_bits2(unsigned long int octet)
 int ft_insert(t_piece *Piece, t_map *Map)
 {
 	int x;
+	int y;
+	y = 0;
+	t_map *Ancre;
+	Ancre = Map;
 
 	x = Map->carrer * Map->carrer;
-
-		while ((Map->size ^ Piece->content) != (Map->size + Piece->content))
-			Piece->content<<= 1;
-		if ((Map->size ^ Piece->content) == (Map->size + Piece->content) && bit_while(Map->size, Piece->content, x))
+	while (bit_while(Map->size, x))
+	{
+		while ((Map->size ^ Piece->content) != Map->size + Piece->content)
+			Piece->content <<= 1;
+		if ((Map->size ^ Piece->content) == Map->size + Piece->content)
 		{
-			Map->size ^= Piece->content;
-			return (1);
+			y = Map->size ^ Piece->content;
+			ft_next_right_map(&Map);
+			Map->size = y;
 		}
-	return (0);
+	}
+	Map = Ancre;
+	return ((Map->size) ? 1 : 0);
 }
 void tracking(t_map *Map, t_piece *Piece)
 {
@@ -62,10 +84,35 @@ void tracking(t_map *Map, t_piece *Piece)
 
 	while (Piece->next != NULL)
 	{
-		while (!(ft_insert(Piece, Map)))
+		while(!(ft_insert(Piece, Map)))
 			Map->carrer++;
 		ft_next_piece(&Piece);
 	}
+	ft_shear(Map);
 	printer(Map, Piece);
 	printf("Le plus grand carrer : %d\n", Map->carrer);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
