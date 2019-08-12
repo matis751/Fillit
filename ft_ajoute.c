@@ -6,7 +6,7 @@
 /*   By: mel-oual <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 16:04:16 by mel-oual          #+#    #+#             */
-/*   Updated: 2019/08/11 11:42:00 by mel-oual         ###   ########.fr       */
+/*   Updated: 2019/08/12 14:38:05 by mel-oual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,6 @@ void ft_premiere_piece(t_piece *Piece)
 	Piece->verif = 0;
 	Piece->haut = 0;
 	Piece->larg = 0;
-	Piece->content = 0;
+	Piece->content = ULL;
 	Piece->next = NULL;
 }
