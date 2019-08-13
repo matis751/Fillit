@@ -6,11 +6,76 @@
 /*   By: mel-oual <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 16:22:43 by mel-oual          #+#    #+#             */
-/*   Updated: 2019/08/12 18:34:47 by mel-oual         ###   ########.fr       */
+/*   Updated: 2019/08/13 23:21:31 by mel-oual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+#include <limits.h>
+int getbit(__uint128_t bit, int pos[])
+{
+	int x;
+	__uint128_t masque;
+	masque = 1;
+	x = 0;
+	print_bits2((masque << (pos[3] - 1)));
+	while(x != 4)
+	{
+		if (masque << (pos[x++] - 1) & bit)
+			return(0);
+		x++;
+	}
+	return (1);
+}
+void pos_bit( __uint128_t bit, t_piece *Piece)
+{
+	 __uint128_t masque;
+	 int nbre;
+	 int x;
+	 int position;
+
+	 position = 0;
+	 nbre = 0;
+	 x = 0;
+	 masque = 1;
+	 while(nbre != 4)
+	 {
+		position++;
+		if(masque & bit)
+		{
+			nbre++;
+			Piece->pos[x++] = 128 - (128 - position);
+		}
+		masque <<= 1;
+	}
+}
+	
+int count_bit( __uint128_t bit)
+{
+	 __uint128_t masque;
+	long int x;
+	x = 0;
+	masque = 1;
+	while(masque != 0)
+	{
+		(masque & bit) ? x++ : x;
+		masque <<= 1;
+	}
+	printf("Le nombre de bit = %ld\n", x);
+	return (1);
+}
+
+int first_bit( __uint128_t bit)
+{
+	int x;
+	 __uint128_t masque;
+	masque = 1;
+	masque <<= 127;
+	x = 1;
+	while (!((masque >>= 1) & bit))
+		x++;
+	return (128 - x);
+}
 void ft_shear(t_map *Map)
 {
 	int x;
@@ -24,7 +89,7 @@ void ft_shear(t_map *Map)
 			x++;
 		while ((y * y) < x)
 			y++;
-		(Map->carrer < y ? Map->carrer = y : Map->carrer);
+		(Map->carrer > y ? Map->carrer = y : Map->carrer);
 		Map->befor= Map;
 		Map = Map->right;
 	}
@@ -32,10 +97,8 @@ void ft_shear(t_map *Map)
 }
 int bit_while(long int map, int carrer)
 {
-	long int x;
-	int car;
-	long int masque;
-	int y = 64;
+	 __uint128_t x;
+	 __uint128_t masque;
 
 	x = map;
 	masque = 1;
@@ -48,9 +111,10 @@ int bit_while(long int map, int carrer)
 	return (1);
 }
 
-void	print_bits2(unsigned long int octet)
+void	print_bits2( __uint128_t octet)
 {
-	long int	i =  2147483648;
+	 __uint128_t	i =  1;
+	i <<= 127;
 	printf("bits :\n");
 	while (i >>= 1)
 		(octet & i) ? write(1, "1", 1) : write(1, "0", 1);
@@ -60,36 +124,37 @@ void	print_bits2(unsigned long int octet)
 int ft_insert(t_piece *Piece, t_map *Map)
 {
 	int x;
-	int y;
+	 __uint128_t y;
 	int ret;
-	long int m;
-	m = Map->size;
+	int v = 0;
+	int first = 0;
+	int first1 = 0;
+	first = 0;
 	ret = 0;
 	y = 0;
 	t_map *Ancre;
 	Ancre = Map;
 
-	x = Map->carrer * Map->carrer;
 	while(Piece->next)
 	{
-		while ((ret = bit_while(m, x)))
+		while((first = first_bit(Piece->content)) < 127)
 		{
-			if ((Map->size ^ Piece->content) == Map->size + Piece->content)
+			pos_bit(Piece->content, Piece);
+			if (getbit(Map->size, &Piece->pos[0]))
 			{
 				y = Map->size ^ Piece->content;
-				printf("y = %d\n", y);
 				Map->size = y;
-				print_bits2(y);
-				m = Map->size;
 				if (Map->right == NULL)
 					ft_next_right_map(&Map);
 				else 
 					ft_justnext_right(&Map);
 			}
-				Piece->content <<= 1;
+			printf("La piece en bits :\n");
+			print_bits2(Piece->content);
+			Piece->content <<= 1;
 		}
-		if (!(bit_while(Piece->content, x)))
-			Map->carrer++;
+		v++;
+		printf("!!!!le nombre de Piece = %d!!!!\n\n", v);
 		Map = Ancre;
 		ft_justnext_piece(&Piece);
 	}
@@ -104,7 +169,7 @@ void tracking(t_map *Map, t_piece *Piece)
 	ft_shear(Map);
 
 	printer(Map, Piece);
-	printf("Le plus grand carrer : %d\n", Map->carrer);
+	printf("Le plus petit carrer : %d\n", Map->carrer);
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: mel-oual <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 23:53:12 by mel-oual          #+#    #+#             */
-/*   Updated: 2019/08/12 14:54:33 by mel-oual         ###   ########.fr       */
+/*   Updated: 2019/08/13 21:00:06 by mel-oual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <limits.h>
 #include <fcntl.h>
 #include "../libft/includes/libft.h"
 
 #define SHORT 0b0000000000000001
-#define ULL -9223372036854775807
 #define UL 1073741824
 #define VERIF 15
 #define LINE 5
@@ -38,7 +38,8 @@ typedef struct s_Piece
 {
 	unsigned int size : 4;
 	unsigned int verif : 4;
-	long int content;
+	 __uint128_t content;
+	int pos[4];
 	int haut;
 	int larg;
 	struct s_Piece *befor;
@@ -47,7 +48,7 @@ typedef struct s_Piece
 
 typedef struct s_Map
 {
-	long int size : 64;
+	 __uint128_t size;
 	int carrer;
 	int line;
 	struct s_Map *befor;
@@ -81,7 +82,7 @@ int ft_voisin(char **buff);
 void ft_carrer(t_map *Map);
 void tracking(t_map *Map, t_piece *Piece);
 void ft_justnext_piece(t_piece **Piece);
-void	print_bits2(unsigned long int octet);
+void	print_bits2( __uint128_t octet);
 t_map *creat_map(t_piece *Piece, t_map *Map);
 
 #endif

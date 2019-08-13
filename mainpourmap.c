@@ -6,7 +6,7 @@
 /*   By: mel-oual <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 16:28:05 by mel-oual          #+#    #+#             */
-/*   Updated: 2019/08/12 14:54:21 by mel-oual         ###   ########.fr       */
+/*   Updated: 2019/08/13 20:57:39 by mel-oual         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,6 @@ int bits(char *buff, t_piece *Piece) /*transforme ma piece en bit*/
 	}
 	ajuste(&piece_bit);
 	Piece->content = piece_bit;
-	printf("Valeur de la piece : %ld\n", Piece->content);
-	printf("Valeur en bit : \n");
 	print_bits2(Piece->content);
 	return (1);
 }
