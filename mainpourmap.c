@@ -29,6 +29,7 @@ int ft_parametres_haut(t_piece *Piece, t_map *Map)
 	while (x >>= 4)
 			Piece->haut++;
 	printf("Hauteur = %d\n", Piece->haut);
+	Map->carrer = 0;
 	y = ft_valeur(Piece->haut, Piece->larg);
 	y > Map->carrer ? Map->carrer = y : Map->carrer ;
 	return (0);
@@ -105,12 +106,15 @@ int main(int ac, char **av)
 	t_piece *Ancre;
 	Piece = (t_piece *)malloc(sizeof(t_piece));
 	Map = (t_map *)malloc(sizeof(t_map));
-	ft_premiere_piece(Piece);
+	ft_premiere_piece(&Piece);
 	ft_ajoute_map(&Map);
 	Ancre = Piece;
 
 	reader(av[1], &Piece, Map);
 	Piece = Ancre;
 	tracking(Map, Piece);
+	free_map(&Map);
+	Piece = Ancre;
+	free_piece(&Piece);
 	return (1);
 }

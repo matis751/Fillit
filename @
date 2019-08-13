@@ -37,9 +37,9 @@ int bit_while(long int map, int carrer)
 	long int masque;
 	int y = 64;
 
-	x = map;
+	x |= map;
 	masque = 1;
-	masque <<= carrer - 1;
+	masque <<= carrer + 1;
 	while (masque <<= 1)
 	{
 		if (masque & x)
@@ -61,48 +61,37 @@ int ft_insert(t_piece *Piece, t_map *Map)
 {
 	int x;
 	int y;
-	int ret;
-	long int m;
-	m = Map->size;
-	ret = 0;
 	y = 0;
 	t_map *Ancre;
 	Ancre = Map;
 
 	x = Map->carrer * Map->carrer;
-	while(Piece->next)
+	while (bit_while(Map->size, x))
 	{
-		while ((ret = bit_while(m, x)))
+		while ((Map->size ^ Piece->content) != Map->size + Piece->content)
+			Piece->content <<= 1;
+		if ((Map->size ^ Piece->content) == Map->size + Piece->content)
 		{
-			if ((Map->size ^ Piece->content) == Map->size + Piece->content)
-			{
-				y = Map->size ^ Piece->content;
-				printf("y = %d\n", y);
-				Map->size = y;
-				print_bits2(y);
-				m = Map->size;
-				if (Map->right == NULL)
-					ft_next_right_map(&Map);
-				else 
-					ft_justnext_right(&Map);
-			}
-				Piece->content <<= 1;
+			y = Map->size ^ Piece->content;
+			ft_next_right_map(&Map);
+			Map->size = y;
 		}
-		if (!(bit_while(Piece->content, x)))
-			Map->carrer++;
-		Map = Ancre;
-		ft_justnext_piece(&Piece);
 	}
 	Map = Ancre;
-	return (!(ret) ? 1 : 0);
+	return ((Map->size) ? 1 : 0);
 }
 void tracking(t_map *Map, t_piece *Piece)
 {
 	t_piece *Ancre;
 	Ancre = Piece;
-	ft_insert(Piece, Map);
-	ft_shear(Map);
 
+	while (Piece->next != NULL)
+	{
+		while(!(ft_insert(Piece, Map)))
+			Map->carrer++;
+		ft_next_piece(&Piece);
+	}
+	ft_shear(Map);
 	printer(Map, Piece);
 	printf("Le plus grand carrer : %d\n", Map->carrer);
 }

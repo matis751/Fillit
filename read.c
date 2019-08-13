@@ -27,7 +27,6 @@ int reader(char *av, t_piece **TPiece, t_map *Map)
 		return (0);
 	while ((ret = read(fd, buff, 21)) > 0)
 	{
-		Piece->next = (t_piece *)malloc(sizeof(t_piece));
 		bits(buff, Piece);
 		ft_parametres_larg(Piece);
 		ft_parametres_haut(Piece, Map);

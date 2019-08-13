@@ -57,8 +57,11 @@ typedef struct s_Map
 
 void ft_next_right_map(t_map **Map);
 void ajuste(long int *bit);
+void free_piece(t_piece **Piece);
+void free_map(t_map **Map);
 void ft_next_left_map(t_map **Map);
 void ft_next_right_map(t_map **Map);
+void ft_justnext_right(t_map **Map);
 void ft_ajoute_map(t_map **Map);
 int ft_compareversion2(char *buff);
 int ft_bit_get_while(long int bit, int pos);
@@ -71,12 +74,13 @@ int ft_valeur(int a, int b);
 int bits(char *buff, t_piece *Piece);
 int reader(char *av, t_piece **Piece, t_map *Map);
 void ft_ajoute_piece(t_piece *Piece);
-void ft_premiere_piece(t_piece *Piece);
+void ft_premiere_piece(t_piece **Piece);
 void output(t_map *Map, t_piece *Piece);
 void printer(t_map *Map, t_piece *Piece);
 int ft_voisin(char **buff);
 void ft_carrer(t_map *Map);
 void tracking(t_map *Map, t_piece *Piece);
+void ft_justnext_piece(t_piece **Piece);
 void	print_bits2(unsigned long int octet);
 t_map *creat_map(t_piece *Piece, t_map *Map);
 
