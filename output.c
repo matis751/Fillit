@@ -12,16 +12,24 @@
 
 #include "fillit.h"
 #include <limits.h>
+void setbit(__uint128_t *bit, int pos[])
+{
+	int x;
+	__uint128_t masque;
+	masque = 1;
+	x = 0;
+	while(x != 4)
+		*bit |= (masque << (pos[x++] - 1));
+}
 int getbit(__uint128_t bit, int pos[])
 {
 	int x;
 	__uint128_t masque;
 	masque = 1;
 	x = 0;
-	print_bits2((masque << (pos[3] - 1)));
 	while(x != 4)
 	{
-		if (masque << (pos[x++] - 1) & bit)
+		if (masque << (pos[x] - 1) & bit)
 			return(0);
 		x++;
 	}
@@ -124,14 +132,13 @@ void	print_bits2( __uint128_t octet)
 int ft_insert(t_piece *Piece, t_map *Map)
 {
 	int x;
-	 __uint128_t y;
 	int ret;
 	int v = 0;
 	int first = 0;
 	int first1 = 0;
+	__uint128_t y;
 	first = 0;
 	ret = 0;
-	y = 0;
 	t_map *Ancre;
 	Ancre = Map;
 
@@ -142,15 +149,24 @@ int ft_insert(t_piece *Piece, t_map *Map)
 			pos_bit(Piece->content, Piece);
 			if (getbit(Map->size, &Piece->pos[0]))
 			{
-				y = Map->size ^ Piece->content;
-				Map->size = y;
+				setbit(&Map->size, &Piece->pos[0]);
+				Piece->content = y;
+				printf("La Map Apres en bits :\n");
+				print_bits2(Map->size);
+				count_bit(Map->size);
 				if (Map->right == NULL)
+				{
+					printf("vouvelle brnqche\n");
 					ft_next_right_map(&Map);
-				else 
+				}
+				else{ 
+					printf("justnext\n");
 					ft_justnext_right(&Map);
+				}
 			}
-			printf("La piece en bits :\n");
+			printf("La Piece en bits :\n");
 			print_bits2(Piece->content);
+			y = Piece->content;
 			Piece->content <<= 1;
 		}
 		v++;
